@@ -221,7 +221,8 @@
 // Because the CTP is unsupported, unrelease, and only alpha quality,
 // it is only supported if BOOST_MSVC_ENABLE_2012_NOV_CTP is defined.
 //
-#if _MSC_FULL_VER < 170051025 || !defined(BOOST_MSVC_ENABLE_2012_NOV_CTP)
+//#if _MSC_FULL_VER < 170051025 || !defined(BOOST_MSVC_ENABLE_2012_NOV_CTP)
+#if _MSC_VER < 1800 && (_MSC_FULL_VER < 170051025 || !defined(BOOST_MSVC_ENABLE_2012_NOV_CTP)) 
 #  define BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
 #  define BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #  define BOOST_NO_CXX11_RAW_LITERALS
@@ -229,11 +230,16 @@
 #  define BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
 #endif
 
+#if _MSC_VER < 1800
+#  define BOOST_NO_CXX11_DECLTYPE_N3276
+#endif // _MSC_VER < 1800
+
+
 // C++11 features not supported by any versions
 #define BOOST_NO_CXX11_CHAR16_T
 #define BOOST_NO_CXX11_CHAR32_T
 #define BOOST_NO_CXX11_CONSTEXPR
-#define BOOST_NO_CXX11_DECLTYPE_N3276
+//#define BOOST_NO_CXX11_DECLTYPE_N3276
 #define BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
 #define BOOST_NO_CXX11_DELETED_FUNCTIONS
 #define BOOST_NO_CXX11_NOEXCEPT
@@ -279,7 +285,9 @@
 #   elif _MSC_VER < 1700
 #     define BOOST_COMPILER_VERSION evc10
 #   elif _MSC_VER < 1800 
-#     define BOOST_COMPILER_VERSION evc11 
+#     define BOOST_COMPILER_VERSION evc11
+#   elif _MSC_VER < 1900
+#     define BOOST_COMPILER_VERSION evc12 
 #   else
 #      if defined(BOOST_ASSERT_CONFIG)
 #         error "Unknown EVC++ compiler version - please run the configure tests and report the results"
@@ -305,6 +313,8 @@
 #     define BOOST_COMPILER_VERSION 10.0
 #   elif _MSC_VER < 1800 
 #     define BOOST_COMPILER_VERSION 11.0 
+#   elif _MSC_VER < 1900
+#     define BOOST_COMPILER_VERSION 12.0
 #   else
 #     define BOOST_COMPILER_VERSION _MSC_VER
 #   endif
@@ -314,8 +324,9 @@
 #endif
 
 //
-// last known and checked version is 1700 (VC11, aka 2011):
-#if (_MSC_VER > 1700)
+// last known and checked version is 1800 (VC12, aka 2013):
+//#if (_MSC_VER > 1700)
+#if (_MSC_VER > 1800)
 #  if defined(BOOST_ASSERT_CONFIG)
 #     error "Unknown compiler version - please run the configure tests and report the results"
 #  else

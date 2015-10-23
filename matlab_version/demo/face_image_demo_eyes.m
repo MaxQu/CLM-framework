@@ -16,7 +16,8 @@ addpath('../CCNF/');
 % A simpler (but less accurate SVR)
 [patches] = Load_Patch_Experts( '../models/general/', 'svr_patches_*_general.mat', [], [], clmParams);
 
-[patches_eye] = Load_Patch_Experts( 'C:\Users\Tadas\Dropbox\AAM\patch_experts_eyes\svr_training\trained/', 'svr_patches_*_synth.mat', [], [], clmParams);
+% [patches_eye] = Load_Patch_Experts( 'C:\Users\Tadas\Dropbox\AAM\patch_experts_eyes\svr_training\trained/', 'svr_patches_*_synth.mat', [], [], clmParams);
+[patches_eye] = Load_Patch_Experts( '../models/general/', 'svr_patches_*_general.mat', [], [], clmParams);
 
 clmParams.multi_modal_types  = patches(1).multi_modal_types;
 
